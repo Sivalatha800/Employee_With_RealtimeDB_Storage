@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {
+  deleteObject,
   getDownloadURL,
   ref,
   Storage,
@@ -81,5 +82,17 @@ export class EmployeeService {
   empFormValuesData: any;
   employeeFormDetails(empFormValues: any) {
     this.empFormValuesData = empFormValues;
+  }
+
+  //=================================  Delete Image ======================
+  deleteImage(deleteEmp: any) {
+    const storageRef = ref(this.storage, deleteEmp.photoURL);
+    deleteObject(storageRef)
+      .then(() => {
+        console.log('File deleted');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }

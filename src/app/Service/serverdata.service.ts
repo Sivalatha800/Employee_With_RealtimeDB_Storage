@@ -189,6 +189,7 @@ export class ServerdataService {
   getParticularEmp!: FormGroup;
   singleEmpData: any;
   submittedSingleData: boolean = false;
+
   getSingleEmployee(empdata: any) {
     this.submittedSingleData = true;
     if (this.getParticularEmp.invalid) {
@@ -202,6 +203,9 @@ export class ServerdataService {
           this.displayEmpDetails = true;
         } else {
           console.log('No Employee Id');
+          this.empService.successAndErrorMessage =
+            'Employee Id ' + empdata.empId + ' Does Not Exists';
+          this.empService.openDialogSuccess();
         }
       });
     }

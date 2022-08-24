@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Database, ref, remove } from '@angular/fire/database';
 import { EmployeeService } from 'src/app/Service/employee.service';
 import { ServerdataService } from 'src/app/Service/serverdata.service';
 
@@ -10,7 +11,8 @@ import { ServerdataService } from 'src/app/Service/serverdata.service';
 export class EmployeeListComponent implements OnInit {
   constructor(
     public serverData: ServerdataService,
-    public empService: EmployeeService
+    public empService: EmployeeService,
+    public db: Database
   ) {}
 
   ngOnInit() {
@@ -20,5 +22,10 @@ export class EmployeeListComponent implements OnInit {
   onEdit(employee: any) {
     this.serverData.editEmpDetails = employee;
     this.serverData.editDataForm();
+  }
+  deleteEmp(deleteEmp: any) {
+    remove(ref(this.db, 'Employee/' + deleteEmp.eid));
+    this.empService.deleteImage(deleteEmp);
+    this.serverData.getData();
   }
 }
