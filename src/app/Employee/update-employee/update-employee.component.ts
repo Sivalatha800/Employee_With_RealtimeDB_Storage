@@ -196,6 +196,7 @@ export class UpdateEmployeeComponent implements OnInit {
         'Please Upload Image First then Update!!';
       this.empService.openDialogSuccess();
     } else {
+      this.empService.deleteImage(this.serverData.editEmpDetails);
       this.serverData.updateEmpWithLatestImg(employeeForm);
     }
   }
